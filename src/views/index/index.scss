@@ -1,0 +1,32 @@
+$baseColor:#65c5c9;
+
+.service {
+  .title {
+    &--infix {
+      position: relative;
+      line-height: 1;
+      vertical-align: bottom;
+      &::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 12px;
+        border-left: 6px solid $baseColor;
+        position: absolute;
+        left: -.9rem;
+        bottom: 20%;
+        transform: skew(10deg);
+      }
+    }
+  }
+  .service-detail {
+    height: 50%;
+    background: #000;
+    overflow: hidden;
+    top: initial;
+    background-color: rgba(0, 0, 0, 0.7);
+    .card-title {
+      color: #fff;
+    }
+  }
+}

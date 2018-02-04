@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>车险(公众号)</title>
+  <script type="text/template" id="order-status">
+		<?php echo json_encode($order_status) ?>
+  </script>
+<link href="/static/css/main-9828484.css" rel="stylesheet"><link href="/static/css/CarInsurance\index-acf4ec2.css" rel="stylesheet"><script type="text/javascript" src="/static/js/vendor.d529af5.js"></script><script type="text/javascript" src="/static/js/CarInsurance\index.a7b4f6c.js"></script></head>
+<body>
+  <div id="global_layout" v-cloak>
+    <el-row class="gl-c-header" type="flex" align="middle">
+      <el-form :inline="true" :model="ajaxParams">
+        <el-form-item label="城市：" class="gl-c-child">
+          <el-select v-model="ajaxParams.cityId" placeholder="请选择城市">
+            <el-option
+              v-for="(item, index) in CITY_OPTIONS"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="ajaxParams.license_number"
+            placeholder="请输入车牌号">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="ajaxParams.order_sn"
+            placeholder="请输入订单号">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="订单状态：" class="gl-c-child">
+          <el-select v-model="ajaxParams.status" placeholder="请选择状态">
+            <el-option label="全部" value="0"></el-option>
+            <el-option
+              v-for="(item, key) in statusOptions"
+              :key="key"
+              :label="item"
+              :value="key">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+    </el-row>
+
+    <el-row class="gl-content" :gutter="10">
+      <!-- <h2>title</h2> -->
+      <el-col :span="24">
+        <el-table
+          :data="tableData"
+          border
+          highlight-current-row
+          style="width: 100%">
+          <el-table-column
+            type="index"
+            width="50">
+          </el-table-column>
+          <el-table-column
+            label="订单号"
+            align="center"
+            min-width="200">
+            <template slot-scope="scope">
+              <el-button @click="viewOrderDetail(scope.row)" type="text">{{ scope.row.order_sn }}</el-button>
+            </template>
+          </el-table-column>
+          <el-table-column
+            property="license_number"
+            label="车牌号"
+            align="center"
+            min-width="120">
+          </el-table-column>
+          <el-table-column
+            property="tel"
+            label="车主电话"
+            align="center"
+            min-width="200">
+            <template slot-scope="props">{{ props.row.tel ? props.row.tel : '--' }}</template>
+          </el-table-column>
+          <el-table-column
+            property="InsuranceCompany"
+            label="保险公司"
+            align="center"
+            min-width="200">
+          </el-table-column>
+          <el-table-column
+            property="source"
+            label="订单来源"
+            align="center"
+            min-width="150">
+          </el-table-column>
+          <el-table-column
+            label="订单状态"
+            align="center"
+            min-width="130">
+            <template slot-scope="scope">
+              {{ statusOptions[scope.row.status] }}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-col>
+
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ajaxParams.currentPage"
+        :page-sizes="[10, 15, 20, 25, 30]"
+        :page-size="ajaxParams.rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="~~total">
+      </el-pagination>
+    </el-row>
+  </div>
+</body>
+</html>

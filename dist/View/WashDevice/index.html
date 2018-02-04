@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>洗车设备</title>
+<link href="/static/css/main-9828484.css" rel="stylesheet"><link href="/static/css/WashDevice\index-3bbbf82.css" rel="stylesheet"><script type="text/javascript" src="/static/js/vendor.d529af5.js"></script><script type="text/javascript" src="/static/js/WashDevice\index.c32e518.js"></script></head>
+<body>
+  <div id="global_layout" v-cloak>
+    <el-row class="gl-c-header" type="flex" align="middle" justify="space-between">
+      <el-form inline :model="ajaxParams">
+        <el-form-item label="城市：" class="gl-c-child">
+          <el-select v-model="ajaxParams.city">
+            <el-option
+              v-for="(item, index) in CITY_OPTIONS"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="ajaxParams.device"
+            placeholder="请输入洗车机序列号">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="日期：" class="gl-c-child">
+          <el-date-picker
+            v-model="time_start"
+            type="date"
+            placeholder="开始日期"
+            :editable="false"
+            @change="ajaxParams.time_start = dateFormat(time_start, 'YYYY-MM-DD')"
+            :picker-options="PICKER_OPTIONS">
+          </el-date-picker>
+          &nbsp;&nbsp;~&nbsp;&nbsp;
+          <el-date-picker
+            v-model="time_end"
+            type="date"
+            placeholder="结束日期"
+            :editable="false"
+            @change="ajaxParams.time_end = dateFormat(time_end, 'YYYY-MM-DD')"
+            :picker-options="PICKER_OPTIONS">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <div class="right-column">
+        <el-button type="warning" @click="editDeviceHandler">修改设备</el-button>
+        <el-button type="warning" @click="dialogTitle = '添加设备', dialogVisible = true">添加设备</el-button>
+      </div>
+    </el-row>
+
+    <el-row class="gl-content" :gutter="10">
+      <!-- <h2>title</h2> -->
+      <el-col :span="24">
+        <el-table
+          :data="tableData"
+          border
+          highlight-current-row
+          @current-change="(newRow) => currentRow = newRow"
+          style="width: 100%">
+          <el-table-column type="index" width="50"></el-table-column>
+          <el-table-column
+            property="add_time"
+            label="添加时间"
+            align="center"
+            min-width="190">
+          </el-table-column>
+          <el-table-column
+            property="address"
+            label="地址"
+            align="center"
+            min-width="200">
+          </el-table-column>
+          <el-table-column
+            property="shop_name"
+            label="门店名称"
+            align="center"
+            min-width="150">
+          </el-table-column>
+          <el-table-column
+            label="摄像头识别码"
+            align="center"
+            min-width="150">
+            <template slot-scope="props">
+              {{ props.row.camera_device | formatCellContent }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            property="washCar_device"
+            label="洗车机序列号"
+            align="center"
+            min-width="120">
+          </el-table-column>
+          <el-table-column
+            label="洗车机状态"
+            align="center"
+            min-width="120">
+            <template slot-scope="props">{{ props.row.can_wash | formatStatus }}</template>
+          </el-table-column>
+          <el-table-column
+            label="设备二维码"
+            align="center"
+            min-width="200">
+            <template slot-scope="props">
+              <img :src="props.row.qrcode" width="80px" height="80px" v-if="props.row.qrcode">
+              <span v-else>--</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-col>
+
+      <el-dialog
+        :title="dialogTitle"
+        :visible.sync="dialogVisible"
+        :modal-append-to-body="false"
+        @close="washDeviceDisabled = false, editRow.shop_name = editRow.city = editRow.washDevice = editRow.address = ''">
+        <el-form :model="editRow" label-width="100px">
+          <el-form-item label="门店名称">
+            <el-input v-model="editRow.shop_name" placeholder="请输入门店名称" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="城市">
+            <el-select v-model="editRow.city" placeholder="请选择一个城市">
+              <el-option
+                v-if="item.id != 0"
+                v-for="(item, index) in CITY_OPTIONS"
+                :key="index"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="地址">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 4}"
+              v-model="editRow.address"
+              placeholder="请输入地址"
+              auto-complete="off">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="设备号">
+            <el-input v-model="editRow.washDevice" :disabled="washDeviceDisabled" placeholder="请输入洗车机序列号" auto-complete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="warning" plain @click="dialogVisible = false">取 消</el-button>
+          <el-button type="warning" @click="saveDeviceHandler(editRow)">确 定</el-button>
+        </div>
+      </el-dialog>
+
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ajaxParams.currentPage"
+        :page-sizes="[10, 15, 20, 25, 30]"
+        :page-size="ajaxParams.rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="~~total">
+      </el-pagination>
+    </el-row>
+  </div>
+</body>
+</html>

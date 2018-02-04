@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>违章订单</title>
+  <script type="text/template" id="city-list">
+		<?php echo json_encode($cityInfo) ?>
+  </script>
+<link href="/static/css/main-9828484.css" rel="stylesheet"><link href="/static/css/CarViolation\index-3bbbf82.css" rel="stylesheet"><script type="text/javascript" src="/static/js/vendor.d529af5.js"></script><script type="text/javascript" src="/static/js/CarViolation\index.8b5ec79.js"></script></head>
+<body>
+  <div id="global_layout" v-cloak v-loading.fullscreen.lock="fullscreenLoading">
+    <el-row class="gl-c-header" type="flex" align="middle">
+      <el-form :inline="true" :model="ajaxParams">
+        <el-form-item label="城市：" class="gl-c-child">
+          <el-select v-model="ajaxParams.city_id">
+            <el-option
+              v-for="(item, index) in CITY_OPTIONS"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="订单状态：" class="gl-c-child">
+          <el-select v-model="ajaxParams.orderStatus">
+            <el-option
+              v-for="(item, index) in statusOptions"
+              :key="index"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="ajaxParams.license_number"
+            placeholder="请输入车牌号">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="ajaxParams.orderid"
+            placeholder="请输入订单号">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="日期：" class="gl-c-child">
+          <el-date-picker
+            v-model="time_star"
+            type="date"
+            placeholder="开始日期"
+            :editable="false"
+            @change="ajaxParams.time_star = dateFormat(time_star, 'YYYY-MM-DD')"
+            :picker-options="PICKER_OPTIONS">
+          </el-date-picker>
+          &nbsp;&nbsp;~&nbsp;&nbsp;
+          <el-date-picker
+            v-model="time_end"
+            type="date"
+            placeholder="结束日期"
+            :editable="false"
+            @change="ajaxParams.time_end = dateFormat(time_end, 'YYYY-MM-DD')"
+            :picker-options="PICKER_OPTIONS">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+    </el-row>
+
+    <el-row class="gl-content" :gutter="10">
+      <!-- <h2>title</h2> -->
+      <el-col :span="24">
+        <el-table
+          :data="tableData"
+          border
+          highlight-current-row
+          style="width: 100%">
+          <el-table-column type="index" width="40"></el-table-column>
+          <el-table-column
+            prop="license_number"
+            label="车牌号"
+            align="center"
+            min-width="120">
+          </el-table-column>
+          <el-table-column
+            prop="add_time"
+            label="申请时间"
+            align="center"
+            min-width="180">
+          </el-table-column>
+          <!-- <el-table-column
+            prop="city_name"
+            label="城市"
+            align="center"
+            min-width="120">
+            <template slot-scope="scope">
+              {{ scope.row.city_name | '--' }}
+            </template>
+          </el-table-column> -->
+          <el-table-column
+            prop="amount"
+            label="应付金额"
+            align="center"
+            min-width="100">
+          </el-table-column>
+          <el-table-column
+            prop="poundage"
+            label="服务费"
+            align="center"
+            min-width="100">
+          </el-table-column>
+          <el-table-column
+            prop="orderStatus"
+            label="订单状态"
+            align="center"
+            min-width="150">
+            <template slot-scope="scope">
+              {{ scope.row.orderStatus | formatStatus }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="violation_order_id"
+            label="订单号"
+            align="center"
+            min-width="220">
+          </el-table-column>
+          <el-table-column
+            prop="fail_msg"
+            label="退款原因"
+            align="center"
+            min-width="200">
+            <template slot-scope="scope">
+              {{ scope.row.remark || '--' }}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-col>
+
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ajaxParams.currentPage"
+        :page-sizes="[10, 15, 20, 25, 30]"
+        :page-size="ajaxParams.rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="~~total">
+      </el-pagination>
+    </el-row>
+
+  </div>
+</body>
+</html>

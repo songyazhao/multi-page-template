@@ -1,0 +1,238 @@
+::-webkit-scrollbar {
+  width: 18px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 4px solid transparent;
+}
+::-webkit-scrollbar-track {
+  box-shadow: 0px 0px 100px rgba(0,0,0,0.2) inset;
+}
+::-webkit-scrollbar-thumb {
+  min-height: 20px;
+  background-clip: content-box;
+  box-shadow: 0 0 0 5px rgba(0,0,0,0.2) inset;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+html {
+  line-height: 1.15; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+  font-size: 14px;
+}
+h1,
+h2,
+h3,
+h4,
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style-type: none;
+}
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+  background-color: transparent; /* 1 */
+  -webkit-text-decoration-skip: objects; /* 2 */
+}
+b,
+strong {
+  font-weight: bolder;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+img {
+  border-style: none;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+button,
+input {
+/* 1 */
+  overflow: visible;
+}
+button,
+select {
+/* 1 */
+  text-transform: none;
+}
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+progress {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+template,
+[hidden],
+[v-cloak] {
+  display: none;
+}
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+#global_layout,
+.gl-c-header,
+.gl-content {
+  min-width: 1095px;
+}
+.rotate180 {
+  -webkit-transform: rotateZ(180deg) !important;
+      -ms-transform: rotate(180deg) !important;
+          transform: rotateZ(180deg) !important;
+}
+.el-dropdown-menu__item {
+  text-align: center;
+}
+.gl-content h2 {
+  padding-left: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  clear: both;
+}
+.gl-c-header {
+  height: 4em;
+  background-color: #fbfdff;
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  border-bottom: #e5e5e5 solid 1px;
+}
+.gl-c-header .gl-c-child {
+  display: inline-block;
+  padding-left: 20px;
+}
+.gl-c-header .el-form-item {
+  margin-bottom: 0;
+}
+.gl-c-header > .el-button,
+.gl-c-header > .right-column {
+  margin-right: 20px;
+}
+.gl-c-header .el-select {
+  width: 135px;
+}
+.gl-content {
+  position: fixed !important;
+  top: 4em;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+}
+.el-pagination {
+  position: fixed !important;
+  width: 100%;
+  bottom: 0;
+}
+.el-table .warning-row {
+  background: #fdf5e6;
+}
+.el-table .success-row {
+  background: #f0f9eb;
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 145px;
+}
+.el-date-editor.el-range-editor {
+  width: 250px;
+}
+.el-tabs__header {
+  margin-bottom: 3px;
+}

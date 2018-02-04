@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>车抵贷信息</title>
+  <script type="text/template" id="status-list">
+		<?php echo json_encode($status) ?>
+  </script>
+<link href="/static/css/main-9828484.css" rel="stylesheet"><link href="/static/css/CarGuaranty\index-3bbbf82.css" rel="stylesheet"><script type="text/javascript" src="/static/js/vendor.d529af5.js"></script><script type="text/javascript" src="/static/js/CarGuaranty\index.268177c.js"></script></head>
+<body>
+  <div id="global_layout" v-cloak>
+    <el-row class="gl-c-header" type="flex" align="middle">
+      <el-form :inline="true" :model="ajaxParams">
+        <el-form-item label="城市：" class="gl-c-child">
+          <el-select v-model="ajaxParams.city_id">
+            <el-option
+              v-for="(item, index) in CITY_OPTIONS"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="订单状态：" class="gl-c-child">
+          <el-select v-model="ajaxParams.status">
+            <el-option
+              v-for="(item, index) in statusOptions"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="ajaxParams.mobile"
+            placeholder="请输入联系方式">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="日期：" class="gl-c-child">
+          <el-date-picker
+            v-model="ajaxParams.time_star"
+            type="date"
+            placeholder="开始日期"
+            :editable="false"
+            value-format="yyyy-MM-dd"
+            :picker-options="PICKER_OPTIONS">
+          </el-date-picker>
+          &nbsp;&nbsp;~&nbsp;&nbsp;
+          <el-date-picker
+            v-model="ajaxParams.time_end"
+            type="date"
+            placeholder="结束日期"
+            :editable="false"
+            value-format="yyyy-MM-dd"
+            :picker-options="PICKER_OPTIONS">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+    </el-row>
+
+    <el-row class="gl-content" :gutter="10">
+      <!-- <h2>title</h2> -->
+      <el-col :span="24">
+        <el-table
+          :data="tableData"
+          border
+          highlight-current-row
+          style="width: 100%">
+          <el-table-column type="index" width="40"></el-table-column>
+          <el-table-column
+            prop="add_time"
+            label="申请时间"
+            align="center"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="city"
+            label="所在城市"
+            align="center"
+            width="100">
+          </el-table-column>
+          <el-table-column
+            prop="mobile"
+            label="车主电话"
+            align="center"
+            min-width="100">
+          </el-table-column>
+          <el-table-column
+            prop="brand_name"
+            label="车辆型号"
+            align="center"
+            min-width="250">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="车主姓名"
+            align="center"
+            min-width="100">
+          </el-table-column>
+          <el-table-column
+            prop="status"
+            label="订单状态"
+            align="center"
+            min-width="80">
+            <template slot-scope="scope">
+              {{ scope.row.status | formatStatus }}
+            </template>
+          </el-table-column>
+          <!-- <el-table-column
+            label="状态日志"
+            align="center"
+            width="130">
+            <template slot-scope="scope">
+              <el-button type="warning" size="small" @click="handleViewLog(scope.row)">查 看</el-button>
+            </template>
+          </el-table-column> -->
+        </el-table>
+      </el-col>
+
+      <el-dialog
+        title="状态日志"
+        width="521px"
+        :visible.sync="dialogVisible"
+        :modal-append-to-body="false">
+        <el-table
+          :data="logTableData"
+          border
+          highlight-current-row
+          style="width: 100%">
+          <el-table-column
+            label="订单状态"
+            align="center"
+            width="80">
+            <template slot-scope="scope">
+              {{ scope.row.to | formatStatus }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="add_time"
+            label="修改时间"
+            align="center"
+            width="200">
+          </el-table-column>
+          <el-table-column
+            label="备注"
+            align="center"
+            width="200">
+            <template slot-scope="scope">
+              {{ scope.row.remark | formatCellContent }}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
+
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ajaxParams.currentPage"
+        :page-sizes="[10, 15, 20, 25, 30]"
+        :page-size="ajaxParams.rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="~~total">
+      </el-pagination>
+    </el-row>
+  </div>
+</body>
+</html>

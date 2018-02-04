@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>配置列表</title>
+<link href="/static/css/main-9828484.css" rel="stylesheet"><link href="/static/css/Config\index-3bbbf82.css" rel="stylesheet"><script type="text/javascript" src="/static/js/vendor.d529af5.js"></script><script type="text/javascript" src="/static/js/Config\index.bdb253c.js"></script></head>
+<body>
+  <div id="global_layout" v-cloak v-loading.fullscreen.lock="fullscreenLoading">
+    <el-row class="gl-c-header" type="flex" align="middle">
+      <el-form :inline="true" :model="ajaxParams">
+        <el-form-item label="搜索：" class="gl-c-child">
+          <el-input
+            v-model="ajaxParams.key"
+            placeholder="请输入配置项的key">
+          </el-input>
+        </el-form-item>
+      </el-form>
+      <el-button type="warning" @click="dialogFormVisible = true, method = 'addConfig'">新增</el-button>
+      <el-button type="warning" @click="editConfig">修改</el-button>
+    </el-row>
+
+    <el-row class="gl-content" :gutter="10">
+      <!-- <h2>title</h2> -->
+      <el-col :span="24">
+        <el-table
+          :data="tableData"
+          border
+          highlight-current-row
+          @current-change="handleCurrentChange"
+          style="width: 100%">
+          <el-table-column
+            prop="id"
+            label="id"
+            align="center"
+            min-width="30">
+          </el-table-column>
+          <el-table-column
+            prop="explain"
+            label="权限名称"
+            align="center"
+            min-width="120">
+          </el-table-column>
+          <el-table-column
+            prop="key"
+            label="Key"
+            align="center"
+            min-width="100">
+          </el-table-column>
+          <el-table-column
+            prop="value"
+            label="Value"
+            align="center"
+            min-width="300">
+          </el-table-column>
+          <el-table-column
+            prop="update_time"
+            label="更新时间"
+            align="center"
+            min-width="150">
+          </el-table-column>
+        </el-table>
+      </el-col>
+
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="ajaxParams.currentPage"
+        :page-sizes="[10, 15, 20, 25, 30]"
+        :page-size="ajaxParams.rows"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="~~total">
+      </el-pagination>
+    </el-row>
+
+    <el-dialog
+      title="修改配置"
+      :visible.sync="dialogFormVisible"
+      @close="editRow.key = editRow.value = editRow.explain = ''">
+      <el-form :model="editRow" label-width="120px">
+        <el-form-item label="权限名称">
+          <el-input v-model="editRow.explain" placeholder="请输入权限名称" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Key:">
+          <el-input v-model="editRow.key" placeholder="请输入Key" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Value:">
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="editRow.value"
+            placeholder="请输入Value"
+            auto-complete="off">
+          </el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="warning" plain @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="warning" @click="saveConfig(editRow)">确 定</el-button>
+      </div>
+    </el-dialog>
+
+  </div>
+</body>
+</html>

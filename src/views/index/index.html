@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<%- include src/common/head %>
+
+  <body>
+    <div id="Index">
+      <nav class="navbar fixed-top navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="/">
+          <img src="./images/ban.jpg" width="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarIndex" aria-controls="navbarIndex" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarIndex">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">主页 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">产品工厂</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">软件开发</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">影视制作</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">关于我们</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">新闻资讯</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">联系我们</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  简体中文
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">EN</a>
+                <a class="dropdown-item" href="#">简体中文</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div id="carouselIndex" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselIndex" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselIndex" data-slide-to="1"></li>
+          <li data-target="#carouselIndex" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="./images/ban.jpg" alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" data-src="" src="./images/ban.jpg" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" data-src="" src="./images/ban.jpg" alt="Third slide">
+          </div>
+        </div>
+      </div>
+      <div class="service mx-5">
+        <div class="title">
+          <h4>
+            业务分类<small class="ml-4 title--infix text-muted">Business classification</small>
+          </h4>
+          <p class="h3">WHAT CAN WE DO _</p>
+        </div>
+        <div class="card-deck">
+          <div class="card">
+            <img class="card-img" src="./images/yewu_08.jpg" alt="Card image">
+            <div class="card-img-overlay service-detail">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Last updated 3 mins ago</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="./images/yewu_08.jpg" alt="Card image">
+            <div class="card-img-overlay  service-detail">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Last updated 3 mins ago</p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="./images/yewu_08.jpg" alt="Card image">
+            <div class="card-img-overlay  service-detail">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">Last updated 3 mins ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
