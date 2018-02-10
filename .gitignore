@@ -1,4 +1,5 @@
-dist/*
+dist/views
+dist/static
 
 # Logs
 logs
