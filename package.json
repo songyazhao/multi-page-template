@@ -1,14 +1,19 @@
 {
-  "name": "car-wash__caryu",
+  "name": "multi-page-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "基于 Webpack3.x 开发(dev)和构建(build)Web多页面应用(普通 Web 站点) 的前端工程化方案。",
   "main": "index.js",
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js"
   },
   "author": "SongYaZhao",
-  "license": "ISC",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9"
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.24.1",
@@ -42,11 +47,5 @@
     "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0",
     "webpack-merge": "^4.1.1"
-  },
-  "dependencies": {
-    "bootstrap": "^4.0.0",
-    "jquery": "^3.3.1",
-    "jquery.cookie": "^1.4.1",
-    "popper.js": "^1.12.9"
   }
 }

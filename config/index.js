@@ -4,8 +4,8 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     entrysPath: resolve('../src/views'), // 入口文件夹路径
-    viewsPath: resolve('../dist/View'), // 打包后的HTML存放路径
-    assetsRoot: resolve('../dist'), // 静态资源根目录
+    viewsPath: resolve('../dist/views'), // 打包后的HTML存放路径
+    assetsRoot: resolve('../dist'), // 构建后的文件存放位置
     assetsSubDirectory: 'static', // 静态资源存放位置(JS,CSS,IMG,FONT...)
     assetsPublicPath: '/', // 给静态资源添加的绝对路径前缀 eg: src
     productionSourceMap: false,
@@ -25,17 +25,10 @@ module.exports = {
     env: require('./dev.env'),
     port: 2335,
     autoOpenBrowser: false,
+    devtool: '#cheap-module-eval-source-map', // cheap-module-eval-source-map is faster for development
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {//开发环境的ajax代理域名
-      '/Caryu': {
-          target: 'http://ceshi.caryu.com',
-          changeOrigin: true,
-          pathRewrite: {
-            '^/Caryu': '/Caryu'
-          }
-      }
-    },
+    proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

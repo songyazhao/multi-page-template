@@ -1,3 +1,9 @@
+/**
+ * @author SongYaZhao
+ * email: syazhao@foxmail.com
+ * github: https://github.com/songyazho
+ */
+
 const utils = require('./utils')
 const config = require('../config')
 const path = require('path')

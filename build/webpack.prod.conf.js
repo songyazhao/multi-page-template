@@ -1,3 +1,9 @@
+/**
+ * @author SongYaZhao
+ * email: syazhao@foxmail.com
+ * github: https://github.com/songyazho
+ */
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanPlugin = require('clean-webpack-plugin') // webpack插件，用于清除目录文件
 const webpack = require('webpack')
@@ -20,7 +26,7 @@ const propWebpackConfig = {
     new webpack.NoEmitOnErrorsPlugin(), // 在编译出现错误时, 来跳过输出阶段
     new ExtractTextPlugin(utils.assetsPath('css/[name]-[ContentHash:7].css')), // 页面中提取的css名字
     new CleanPlugin( // 每次打包 自动删除之前的旧文件
-      [config.build.assetsSubDirectory], {
+      [config.build.assetsSubDirectory, path.basename(config.build.viewsPath)], {
         root: config.build.assetsRoot, // 基于此目录查找
         verbose: true, // 是否开启在控制台输出信息
         watch: true, // 默认false 为true时删除所有的编译文件

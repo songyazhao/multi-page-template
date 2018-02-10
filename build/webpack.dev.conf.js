@@ -1,3 +1,9 @@
+/**
+ * @author SongYaZhao
+ * email: syazhao@foxmail.com
+ * github: https://github.com/songyazho
+ */
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const webpack = require('webpack')
@@ -11,7 +17,7 @@ const resolve = dir => path.resolve(__dirname, dir)
 
 const devWebpackConfig = {
   entry: { main: resolve('../src/main.js') }, // 主入口
-  devtool: '#cheap-module-eval-source-map', // cheap-module-eval-source-map is faster for development
+  devtool: config.dev.devtool,
   plugins: [
     new ExtractTextPlugin(utils.assetsPath('css/[name].css')),
     new webpack.DefinePlugin({ 'process.env': config.dev.env }),

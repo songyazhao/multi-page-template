@@ -1,12 +1,18 @@
+/**
+ * @author SongYaZhao
+ * email: syazhao@foxmail.com
+ * github: https://github.com/songyazho
+ */
+
 const rd = require('rd')
 const path = require('path')
 const config = require('../config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 exports.assetsPath = function (_path) {
-  const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
-    config.build.assetsSubDirectory :
-    config.dev.assetsSubDirectory
+  const assetsSubDirectory = process.env.NODE_ENV === 'production'
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
   return path.posix.join(assetsSubDirectory, _path)
 }
 
@@ -19,18 +25,15 @@ exports.addQueueFile = function (WebpackConfig, entryKeys) {
   rd.eachDirFilterSync(entrysPath, reg, f => {
     f = f.split(s).join(s + s)
 
-    rd.eachFilterSync(f, /\.html$/i, files => { // 枚举对应文件夹下的文件
-      let temp = files.split(s).slice(-3)
-      let filename = [...temp.slice(0, 1), ...temp.slice(2, 3)].join(s)
+    rd.eachFilterSync(f, /\.html$/i, template => { // 枚举对应文件夹下的文件
+      let filename = path.basename(template)
       let entryKey = filename.replace('.html', '')
-      let template = path.join(path.dirname(entrysPath), entryKey, temp[2])
       let hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true'
-
       WebpackConfig.entry[entryKey] = [template.replace('.html', '.js'), hotMiddlewareScript] // 批量添加入口文件
 
-      filename = process.env.NODE_ENV === 'production' ?
-        config.build.viewsPath + s + filename :
-        filename.replace(s, '/')
+      if (process.env.NODE_ENV === 'production') {
+        filename = path.join(config.build.viewsPath, filename)
+      }
 
       temp = new HtmlWebpackPlugin({
         template, // 模板html路径
